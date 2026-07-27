@@ -8,6 +8,8 @@ Tài liệu mô tả các class thuộc package **model** trong dự án Restaur
 
 Đại diện cho một hóa đơn thanh toán, liên kết với một `Order` và một `Payment`.
 
+Lời thuyết trình (đầu tiên là khởi tạo hóa đơn thanh toán và liên kết với order và payment. Sau đó, nó cung cấp các phương thức để tạo hóa đơn, in thông tin hóa đơn, cập nhật trạng thái và tìm kiếm hóa đơn theo ID.)
+
 ### Thuộc tính
 
 | Thuộc tính | Kiểu dữ liệu | Mô tả |
@@ -19,28 +21,29 @@ Tài liệu mô tả các class thuộc package **model** trong dự án Restaur
 | `issueDate` | `Date` | Ngày lập hóa đơn |
 | `status` | `InvoiceStatus` | Trạng thái hóa đơn (mặc định `UNPAID`) |
 
-### Constructor
+### Constructor 
 
-- `Invoice()` — constructor mặc định.
+(Sau đó khởi tạo đối tượng Constructor khởi tạo đầy đủ thông tin hóa đơn)
+- `Invoice()` — Khởi tạo đối tượng là Invoice
 - `Invoice(String invoiceId, Order order, Payment payment, Double totalAmount, Date issueDate, InvoiceStatus status)` — khởi tạo đầy đủ thông tin hóa đơn.
 
-### Getter / Setter
+### Getter / Setter (hàm getter có nhiệm vụ lấy dữ liệu, setter gán dữ liệu đầy đủ cho các thuộc tính trên)
 
 Đầy đủ getter/setter cho tất cả 6 thuộc tính ở trên.
 
-### Phương thức nghiệp vụ
+### Phương thức nghiệp vụ (Phương thức là hành động mà class thực hiện được.)
 
 | Phương thức | Mô tả |
 |---|---|
-| `createInvoice()` | Khởi tạo hóa đơn: gán `issueDate` là thời điểm hiện tại, `status = UNPAID`, và `totalAmount` lấy từ `order.getTotalPrice()`. |
+| `createInvoice()` | Khởi tạo hóa đơn: gán `issueDate` là thời điểm hiện tại, `status = UNPAID`, và `totalAmount` lấy từ `order.getTotalPrice()` Lấy tổng tiền từ đối tượng Order.    In ra lấy chính xác mã số hóa đơn đang xử lý.|
 | `printInvoice()` | In thông tin chi tiết hóa đơn ra console (mã hóa đơn, mã đơn hàng, ngày lập, trạng thái, tổng tiền, phương thức thanh toán, mã giao dịch nếu có). |
 | `updateStatus(InvoiceStatus newStatus)` | Cập nhật trạng thái hóa đơn (ví dụ: từ "Chờ thanh toán" sang "Đã thanh toán"). |
-| `getInvoiceById(String id)` | Tìm kiếm hóa đơn theo mã ID; trả về `this` nếu khớp, ngược lại trả về `null`. |
+| `getInvoiceById(String id)` | Tìm kiếm hóa đơn theo mã ID bằng cách so sánh mã hóa đơn hiện tại với mã hóa đơn đã được truyền vào nếu chúng giống nhau phương thức sẽ trả về `this`, ngược lại trả về `null`. |
 | `toString()` | Trả về chuỗi mô tả hóa đơn gồm `invoiceId`, `orderId`, `totalAmount`, `status`. |
 
 ---
 
-## 2. InvoiceStatus (enum)
+## 2. InvoiceStatus (enum) - ((Enumeration - Kiểu liệt kê) được dùng để định nghĩa một tập hợp các hằng số cố định, có cùng bản chất.)
 
 Định nghĩa các trạng thái của một hóa đơn.
 
@@ -55,6 +58,8 @@ Tài liệu mô tả các class thuộc package **model** trong dự án Restaur
 ## 3. Payment
 
 Đại diện cho một giao dịch thanh toán ứng với một hóa đơn.
+
+(Đầu tiên, Payment là class đại diện cho một giao dịch thanh toán, ứng với một hóa đơn cụ thể. sau đó nó sẽ có các phương thức để xử lý thanh toán, ghi lại giao dịch, hủy thanh toán và lấy trạng thái thanh toán.)
 
 ### Thuộc tính
 
@@ -72,7 +77,7 @@ Tài liệu mô tả các class thuộc package **model** trong dự án Restaur
 - `Payment()` — constructor mặc định.
 - `Payment(String paymentId, String invoiceId, Double amount, Date paymentDate, PaymentMethod method)` — khởi tạo giao dịch, tự động gán `status = PENDING`.
 
-### Getter / Setter
+### Getter / Setter  (hàm getter có nhiệm vụ lấy dữ liệu, setter gán dữ liệu đầy đủ cho các thuộc tính trên)
 
 Đầy đủ getter/setter cho tất cả 6 thuộc tính ở trên.
 
