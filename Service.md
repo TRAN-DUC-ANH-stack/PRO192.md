@@ -31,6 +31,16 @@ Xử lý nghiệp vụ liên quan đến hóa đơn (`Invoice`), thao tác dữ 
 | `printInvoice(String invoiceId)` | Tìm hóa đơn theo ID (báo lỗi nếu không tìm thấy) và gọi `invoice.printInvoice()` để in thông tin ra console. |
 | `getByOrderId(String orderId)` | Truy vấn trực tiếp qua `invoiceRepository.findByOrderId(orderId)` để lấy hóa đơn theo mã đơn hàng. |
 
+("Phương thức này dùng để tạo hóa đơn từ một đơn hàng.
+
+Đầu tiên, nó kiểm tra đơn hàng đầu vào — nếu order là null, tức là đơn hàng không hợp lệ, thì ném ra ngoại lệ IllegalArgumentException ngay, không cho tạo hóa đơn.
+
+Nếu hợp lệ, nó sinh ra một mã hóa đơn tự động dựa trên thời gian hiện tại, ví dụ INV1623456789012, để đảm bảo mã không bị trùng.
+
+Sau đó, tạo một đối tượng Invoice mới với: mã vừa sinh, đơn hàng gốc, Payment để null vì chưa thanh toán, tổng tiền lấy trực tiếp từ đơn hàng, ngày phát hành là thời điểm hiện tại, và trạng thái mặc định là UNPAID.
+
+Cuối cùng, gọi add(invoice) — kế thừa từ BaseService — để lưu hóa đơn vào kho dữ liệu, rồi trả về hóa đơn vừa tạo.")
+
 ### Xử lý ngoại lệ
 
 - Ném `IllegalArgumentException` khi:
